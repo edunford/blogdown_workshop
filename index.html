@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>  Building a Web Presence   with Blogdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Eric Dunford" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <br><br>Building a Web Presence <br> with <code>Blogdown</code>
+## <br><em>Data Science in Action Seminar</em>
+### Eric Dunford
+### <em>Fall 2019</em>
+
+---
+
+
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[
+### All slides and materials can be found at 
+### [http://ericdunford.com/blogdown_workshop](http://ericdunford.com/blogdown_workshop)
+]
+
+
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# `I web, therefore I am.` &lt;br&gt;&lt;br&gt; - Yihui Xie
+
+---
+
+# Why have a website?
+
+--
+
+&lt;br&gt;
+
+### Professional visibility 
+
+--
+
+&lt;br&gt;
+
+### Personal archive
+
+--
+
+&lt;br&gt;
+
+### Living Resume
+
+---
+
+### [`blogdown`: Creating Websites with R Markdown](https://bookdown.org/yihui/blogdown/)
+
+.center[
+
+&lt;img src = "figures/blogdown_book_cover.png" width=45%, height=45%&gt;
+]
+
+---
+
+## Static vs. Dynamic sites
+
+#### Dynamic
+&gt; a dynamic site relies on a server-side language to do certain computing and sends potentially different content depending on different conditions. A common language is PHP, and a typical example of a dynamic site is a web forum. 
+
+--
+
+#### Static
+&gt; A static site often consists of HTML files (with optional external dependencies like images and JavaScript libraries), and the web server sends exactly the same content to the web browser no matter who visits the web pages.
+
+--
+
+- [**Hugo**](https://gohugo.io/) &amp;rarr; Static website generator; fast; flexible; maintained
+
+- [**Hugo**](https://gohugo.io/) is versatile but lacks [**`R` Markdown**](https://rmarkdown.rstudio.com/) support (uses the "[Blackfriday](https://github.com/russross/blackfriday)" markdown engine instead of the more powerful "[pandoc](https://pandoc.org/)"). 
+
+- This is where `Blogdown` comes in and becomes useful.
+
+
+---
+
+class: inverse, center, middle
+
+# Let's build a website &lt;br&gt; in 4 easy steps &lt;br&gt;with `blogdown`
+
+---
+
+### Step 1: Install Blogdown
+
+.center[
+![install](figures/install_blogdown.gif)
+]
+
+---
+
+### Step 2: Install Hugo
+
+
+.center[
+![install](figures/install_hugo.gif)
+]
+
+---
+
+### Step 3: Create a new website as a new `R` project
+
+.center[
+![install](figures/new_r_studio_project.gif)
+]
+
+---
+
+### Step 3: Create a new website via the `R` console
+
+.center[
+![install](figures/new_site_from_consol.gif)
+]
+
+---
+
+### Step 4: Spin up the site locally 
+
+.center[
+.pull-left[
+
+#### _Via the `R` Console_
+![install](figures/local_site_consol.gif)
+].pull-right[
+#### _Via `R` Addins_
+![install](figures/local_site_addin.gif)]
+]
+
+---
+
+### Basic Elements of a Hugo-based Website
+
+### (1) `config.toml`
+
+- Global settings for your site
+
+### (2) `content/`
+
+- Write `R` Markdown source files.
+- Page tab content (e.g. `about.md`)
+
+### (3) `public/`
+
+- Publishable directory - "output" of blogdown
+- Upload to server that take static websites (like `netifly.com`)
+- You're live!
+
+
+---
+
+### Edit `config.toml` 
+
+![toml config](figures/toml_config.png)
+
+---
+
+### Edit existing content in the Hugo template
+
+
+.center[
+![install](figures/edit_content.gif)
+]
+
+---
+
+### Add content
+
+Add **new blog posts** programmatically.
+
+
+```r
+blogdown::new_post(title = "This is a new post",
+                   categories = c("Data Science","Public Policy"),
+                   tags = c("ml","dataviz"), 
+                   slug = "ml_post_01", # link reference
+                   ext = ".Rmd") # R Markdown 
+```
+
+.center[
+![New Post](figures/new_post.png)
+]
+
+---
+
+### Add content
+
+
+.center[
+![New Post](figures/content_to_post.gif)
+]
+
+---
+
+### Uploading Images 
+
+**(1) Use the upload `Addin`**
+
+.center[
+![Upload Image](figures/upload_image.gif){width=80% height=80%}
+]
+
+**(2) Manually enter the file path**
+
+```
+![My Image](/post/blog-post-name/my-image.png){width=80% height=80%}
+```
+
+---
+
+## Publishing the Site
+
+- Many ways to publish a static site:
+
+  - [Netifly](https://www.netlify.com/?gclid=Cj0KCQjw5rbsBRCFARIsAGEYRwesUCspKkrMFYSoFojXV7FfCA53do-grAsT3eY8k3DInWWxu2BTufAaAt5SEALw_wcB)
+  
+  - [Updog](https://updog.co/)
+  
+  - [Github](https://github.com/) - via Github Pages
+
+
+&lt;br&gt;
+
+- Must "build" website before publishing
+
+
+```r
+blogdown::build_site()
+```
+
+&lt;br&gt;
+
+- Only the rendered `public/` folder matters 
+  
+  - The `public/` is where the git repository needs to be initiated.
+  
+  - The `public/` is what you drag and drop into netifly/updog. 
+  
+---
+
+### Publishing to `Github` in eight easy steps...
+
+1. Create a **Github account**
+2. Create a **Repository**
+  - Repository must be named "`username.github.io`"
+  - _Don't_ initialize a `README`
+3. **Enable Github Pages** for the Repository
+  - Click the 'Settings' button on the repository home page.
+  - Click and choose a Jekyll theme ("Theme Chooser" under "GitHub Pages" and click `Choose a Theme`)
+      - we must choose a theme even if we are not using Jekyll (which we aren't.)
+  &lt;!-- - Scroll down to the 'GitHub Pages' section and choose the master branch for the source. --&gt;
+4. **Initialize** a `git` repository in the `public/` folder
+5. **Link** your repository to the Github Remote.
+  ```
+  git push -u origin master
+  git remote add origin https://github.com/username/username.github.io.git
+  ```
+6. Add all items in the `public/` folder, commit, push
+7. Wait a few moments.
+8. **Visit your site!** &amp;rarr; `https://username.github.io`
+
+See here for more on [Github Pages](https://pages.github.com/)
+
+---
+
+### Customizing your domain
+
+&lt;br&gt;&lt;br&gt;
+
+Don't like the provided url, buy a domain name:
+
+- [Namecheap](https://www.namecheap.com)
+- [GoDaddy](https://www.godaddy.com)
+- [Domain.com](https://www.domain.com/domains/)
+- etc.
+
+&lt;br&gt;&lt;br&gt;
+
+Adding a custom domain is as easy as adding a file titled `CNAME` containing your custom domain. 
+
+- See this Github help for more information: [Adding a custom domain](https://help.github.com/en/articles/using-a-custom-domain-with-github-pages)
+
+---
+
+### Finding a Hugo theme for that suits you
+
+Go to [https://themes.gohugo.io/](https://themes.gohugo.io/) for a complete list of all maintained Hugo themes. 
+
+.center[
+![Upload Image](figures/getting_a_new_theme.gif)
+]
+
+---
+
+### Using desired Hugo theme 
+
+
+```r
+blogdown::new_site(dir="~/Desktop/academic_theme_website",
+                   theme = "gcushen/hugo-academic")
+```
+
+#### .center[... or ...]
+
+.center[
+![new theme](figures/addin_new_theme.png)
+]
+
+---
+
+## Designing a Portfolio
+
+#### Useful Examples Websites
+&lt;!-- - [David Venturi](http://davidventuri.com/portfolio) --&gt;
+- [Reproducible Random Thoughts](https://yonicd.netlify.com/)
+- [Jesse Mostipak](https://www.jessemaegan.com/)
+- [The Little Dataset that Could](https://thelittledataset.com/)
+- [Shirin Elinghorst](https://www.shirin-glander.de/)
+
+#### Useful Readings on developing a portfolio
+- [How to Build a Data Science Portfolio](https://towardsdatascience.com/how-to-build-a-data-science-portfolio-5f566517c79c) - Michael Galarnyk
+- [4 Dos and Don'ts to Building a Data Science Portfolio](https://blog.brainstation.io/how-to-build-a-data-science-portfolio-4-dos-and-donts/)
+  - Don’t Include Your Whole Body of Work
+  - Do Showcase Your Communication Skills
+  - Do Consider GitHub Instead of a Website
+  - Don’t Just Show Code in Isolation
+- [How You Should Create A Data Science Portfolio That Will Get You Hired](https://www.datascienceweekly.org/articles/how-you-should-create-a-data-science-portfolio-that-will-get-you-hired)
+
+#### Useful Posts on dealing with `Blogdown` related issues
+- [A Spoonful of Hugo: Troubleshooting Your Build](https://alison.rbind.io/post/2019-03-04-hugo-troubleshooting/)
+
+---
+
+&lt;br&gt;
+.center[
+# Thanks!
+&lt;br&gt;
+
+.center[
+### Eric Dunford 
+_McCourt School of Public Policy_&lt;br&gt;
+**_Georgetown University_**&lt;br&gt;
+eric.dunford@georgetown.edu&lt;br&gt;
+[ericdunford.com](http://ericdunford.com/)
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
